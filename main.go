@@ -7,14 +7,16 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/hello", logging(hello))
-	http.HandleFunc("/goodbye", logging(goodbye))
+	http.HandleFunc("/hello", hello)
+	http.HandleFunc("/goodbye", goodbye)
 
 	http.ListenAndServe(":8080", nil)
 }
 
 //
 // Handlers
+//
+// These are the basic handlers, feel free to make them more interesting if you wish
 //
 
 func hello(w http.ResponseWriter, r *http.Request) {
@@ -28,11 +30,8 @@ func goodbye(w http.ResponseWriter, r *http.Request) {
 //
 // Middleware
 //
-
-func logging(next http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		log.Println(r.URL.Path)
-		defer log.Println("Completed Path")
-		next.ServeHTTP(w, r)
-	}
-}
+// Each endpoint should track/record/report:
+// -- starting
+// -- completing
+// -- total duration
+//
