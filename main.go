@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -9,6 +10,7 @@ func main() {
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/goodbye", goodbye)
 
+	log.Println("App started, listening on port 8080")
 	http.ListenAndServe(":8080", nil)
 }
 
